@@ -1,0 +1,31 @@
+# Unity generated files
+Library/
+Temp/
+Obj/
+UnityPackageManager/
+
+# Visual Studio / MonoDevelop generated files
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+*.prefs
+*.dll
+*.sln.DotSettings
+
+# Build artifact files
+*.apk
+*.unitypackage
+*.zip
+
+# Other files
+*.DS_Store
+Thumbs.db
+*.meta
+
