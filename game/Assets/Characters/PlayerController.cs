@@ -19,12 +19,12 @@ public class PlayerController : MonoBehaviour
     {
         float moveInput = Input.GetAxisRaw("Horizontal"); // Obtém a entrada horizontal do jogador
         transform.position += new Vector3(moveInput * speed * Time.deltaTime, 0f, 0f); // Move o personagem na direção horizontal
-        run();
-        jump();
+        Run();
+        Jump();
     }
 
-    private void run(){
-        if(Input.GetAxisRaw("Horizontal") != 0){
+    private void Run(){
+        if(PlayerRunning()){
             skin.localScale = new Vector3(Input.GetAxisRaw("Horizontal"), 1 ,1);
             skin.GetComponent<Animator>().SetBool("PlayerRunning", true);
         }else{
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void jump(){
+    private void Jump(){
         if (Input.GetButtonDown("Jump") && NotJumping() )
         {
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -43,5 +43,9 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private bool PlayerRunning(){
+        return Input.GetAxisRaw("Horizontal") != 0;
     }
 }
