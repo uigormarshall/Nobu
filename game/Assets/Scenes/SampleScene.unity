@@ -292,6 +292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.7
+  jumpForce: 2.5
+  doubleJumpCount: 0
   skin: {fileID: 1878068109}
 --- !u!1 &1606534144
 GameObject:
