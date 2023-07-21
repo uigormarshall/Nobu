@@ -18,7 +18,6 @@ public class Animation : MonoBehaviour
         UpdateStatus();
         Running();
         Jumping();
-        Debug.Log(player.isGrounded);
     }
 
     private void UpdateStatus(){
