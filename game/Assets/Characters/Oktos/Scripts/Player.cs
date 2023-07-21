@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rigidBody2D;
     [SerializeField] private float moveSpeed = 3.5f;
@@ -11,8 +11,11 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float sizeOfRaycastWall = 0.2f;
     [SerializeField] private Transform positionRaycastFooter;
-    [SerializeField] public bool isFacingRight = true;
-    private bool isGrounded;
+    [SerializeField] private bool isFacingRight = true;
+
+    public bool isGrounded;
+    public bool isJumping = false;
+    public bool isFallen = false;
     private float groundCheckRadius = 0.2f;
     private float moveInput;
     void Start()
@@ -23,9 +26,10 @@ public class Movement : MonoBehaviour
     void Update()
     {
         UpdateMoveInput();
+        OnGround();
+        Falling();
         Run();
         Jump();
-        OnGround();
         Flip();
     }
 
@@ -42,6 +46,10 @@ public class Movement : MonoBehaviour
             scale.x *= -1;
             transform.localScale = scale;
         }
+    }
+
+    private void Falling(){
+        isFallen = rigidBody2D.velocity.y <= 0 && isGrounded == false ? true : false;
     }
 
     private void Run()
@@ -62,13 +70,20 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rigidBody2D.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            isJumping = true;
         }
     }
 
+    public void JumpAnimator()
+    {
+        rigidBody2D.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+    }
+
+
     private void OnGround()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.7f, groundLayer);
-        Debug.DrawRay(transform.position,  Vector2.down, Color.red, 0.7f);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, groundLayer);
+        isJumping = !isGrounded;
+        Debug.DrawRay(transform.position, Vector2.down * 1.0f, Color.red, 1.0f);
     }
 }

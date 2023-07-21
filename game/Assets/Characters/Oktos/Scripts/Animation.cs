@@ -4,25 +4,46 @@ using UnityEngine;
 
 public class Animation : MonoBehaviour
 {
-    //[SerializeField] private Movement movement;
     [SerializeField] private Animator animator;
+    [SerializeField] private Player player;
+
     void Start()
     {
-        //movement = GetComponentInParent<Movement>();
+        player = GetComponentInParent<Player>();
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        UpdateStatus();
         Running();
+        Jumping();
+        Debug.Log(player.isGrounded);
     }
 
+    private void UpdateStatus(){
+        animator.SetBool("isGrounded", player.isGrounded);
+        animator.SetBool("jumping", player.isJumping);
+        animator.SetBool("isFallen", player.isFallen);
+    }
     void Running(){
         float moveInput = Input.GetAxisRaw("Horizontal");
         if (moveInput != 0)
             animator.SetBool("running", true);
         else
             animator.SetBool("running", false);
-        Debug.Log(moveInput);
+    }
+
+   void Jumping(){
+        if (player.isJumping)
+        {
+            animator.SetBool("jumping", true);
+            animator.SetBool("isGrounded", player.isGrounded);
+        }
+    }
+
+    public void JumpAnimator()
+    {
+        player.JumpAnimator();
     }
 }
