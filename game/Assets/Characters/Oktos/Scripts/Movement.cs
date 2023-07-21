@@ -68,7 +68,7 @@ public class Movement : MonoBehaviour
 
     private void OnGround()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, groundLayer);
-        Debug.DrawRay(transform.position, Vector2.down * 1.0f, Color.red, 1.0f);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.7f, groundLayer);
+        Debug.DrawRay(transform.position,  Vector2.down, Color.red, 0.7f);
     }
 }
