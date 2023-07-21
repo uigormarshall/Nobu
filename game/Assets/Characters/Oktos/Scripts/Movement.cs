@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float sizeOfRaycastWall = 0.2f;
     [SerializeField] private Transform positionRaycastFooter;
-    [SerializeField] private bool isFacingRight = true;
+    [SerializeField] public bool isFacingRight = true;
     private bool isGrounded;
     private float groundCheckRadius = 0.2f;
     private float moveInput;
