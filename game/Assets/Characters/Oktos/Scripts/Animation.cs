@@ -24,7 +24,7 @@ public class Animation : MonoBehaviour
         animator.SetBool("isGrounded", player.isGrounded);
         animator.SetBool("jumping", player.isJumping);
         animator.SetBool("isFallen", player.isFallen);
-        animator.SetBool("isRunning", player.isRunning);
+        animator.SetBool("running", player.isRunning);
         animator.SetBool("isLowered", player.isLowered);
     }
     void Running(){
@@ -47,7 +47,7 @@ public class Animation : MonoBehaviour
     {
         if(player.isLowered && player.isGrounded){
             animator.SetBool("isLowered", true);
-            animator.SetBool("isRunning", false);
+            animator.SetBool("running", false);
         }
     }
     public void JumpAnimator()

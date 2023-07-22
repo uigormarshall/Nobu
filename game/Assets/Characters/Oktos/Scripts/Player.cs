@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float sizeOfRaycastWall = 0.2f;
     [SerializeField] private Transform positionRaycastFooter;
+    [SerializeField] private Transform positionRaycastHeader;
     [SerializeField] private bool isFacingRight = true;
 
     public bool isGrounded;
@@ -21,12 +22,16 @@ public class Player : MonoBehaviour
     private float groundCheckRadius = 0.2f;
     private float moveInput;
     private float moveInputVertical;
+
+    public float jumpCooldown = 0.3f; 
+    public float jumpCooldownTimer = 0.0f;
+    
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateMoveInput();
         OnGround();
@@ -55,13 +60,23 @@ public class Player : MonoBehaviour
 
     private void Falling(){
         isFallen = rigidBody2D.velocity.y <= 0 && isGrounded == false ? true : false;
+
+
+        if(isFallen){
+            if (jumpCooldownTimer > 0)
+            {
+                jumpCooldownTimer -= Time.deltaTime;
+            }
+        }
     }
 
     private void Run()
     {        
         RaycastHit2D wallCheck = Physics2D.Raycast(positionRaycastFooter.position, new Vector2(moveInput, 0f), sizeOfRaycastWall, groundLayer);
+        RaycastHit2D wallCheckHeader = Physics2D.Raycast(positionRaycastHeader.position, new Vector2(moveInput, 0f), sizeOfRaycastWall, groundLayer);
         Debug.DrawRay(positionRaycastFooter.position, new Vector2(moveInput, 0f), Color.blue, sizeOfRaycastWall);
-        if (wallCheck.collider == null)
+        Debug.DrawRay(positionRaycastHeader.position, new Vector2(moveInput, 0f), Color.yellow, sizeOfRaycastWall);
+        if (wallCheck.collider == null  && wallCheckHeader.collider == null )
         {
             rigidBody2D.velocity = new Vector2(moveInput * moveSpeed, rigidBody2D.velocity.y);
         }
@@ -91,6 +106,12 @@ public class Player : MonoBehaviour
         {
             isJumping = true;
         }
+
+        if(Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer > 0 && isFallen && isGrounded  == false){
+            isJumping = true;
+            JumpAnimator();
+            Debug.Log("Pulo no CoolDown");
+        }
     }
 
     public void JumpAnimator()
@@ -103,6 +124,10 @@ public class Player : MonoBehaviour
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, groundLayer);
         isJumping = !isGrounded;
+
+        if(isGrounded){
+            jumpCooldownTimer = jumpCooldown;
+        }
         Debug.DrawRay(transform.position, Vector2.down * 1.0f, Color.red, 1.0f);
     }
 }
