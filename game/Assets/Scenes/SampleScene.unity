@@ -7279,6 +7279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7429,8 +7430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80600db08a451ba63aabf2880f00b7fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
-  rotationSpeed: 10
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7740,6 +7739,9 @@ MonoBehaviour:
   sizeOfRaycastWall: 0.2
   positionRaycastFooter: {fileID: 1455210481}
   isFacingRight: 0
+  isGrounded: 0
+  isJumping: 0
+  isFallen: 0
 --- !u!50 &1278468566
 Rigidbody2D:
   serializedVersion: 4
