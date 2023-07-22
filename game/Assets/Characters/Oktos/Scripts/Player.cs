@@ -16,8 +16,11 @@ public class Player : MonoBehaviour
     public bool isGrounded;
     public bool isJumping = false;
     public bool isFallen = false;
+    public bool isRunning = false;
+    public bool isLowered = false;
     private float groundCheckRadius = 0.2f;
     private float moveInput;
+    private float moveInputVertical;
     void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
@@ -30,11 +33,13 @@ public class Player : MonoBehaviour
         Falling();
         Run();
         Jump();
+        Lowered();
         Flip();
     }
 
     private void UpdateMoveInput(){
         moveInput = Input.GetAxisRaw("Horizontal");
+        moveInputVertical = Input.GetAxisRaw("Vertical");
     }
 
     private void Flip() {
@@ -64,6 +69,20 @@ public class Player : MonoBehaviour
         {
             rigidBody2D.velocity = new Vector2(0f, rigidBody2D.velocity.y);
         }
+    }
+
+    private void Lowered(){
+        if (Input.GetKeyDown(KeyCode.S)  || moveInputVertical < 0)
+        {
+            isLowered = true;
+            isRunning = false;
+            rigidBody2D.velocity = new Vector2(0, rigidBody2D.velocity.y);
+        }
+
+        if (Input.GetKeyUp(KeyCode.S) || moveInputVertical >= 0)
+        {
+            isLowered = false;
+        } 
     }
 
     private void Jump()
