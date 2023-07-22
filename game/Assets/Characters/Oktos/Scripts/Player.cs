@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float sizeOfRaycastWall = 0.2f;
     [SerializeField] private Transform positionRaycastFooter;
     [SerializeField] private Transform positionRaycastHeader;
+    [SerializeField] private Transform positionRaycastGround;
     [SerializeField] private bool isFacingRight = true;
 
     public bool isGrounded;
@@ -102,12 +103,10 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             isJumping = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer > 0 && isFallen && isGrounded  == false){
+        }else if(Input.GetButtonDown("Jump") && jumpCooldownTimer > 0 && isFallen && isGrounded  == false){
             isJumping = true;
             JumpAnimator();
             Debug.Log("Pulo no CoolDown");
@@ -122,12 +121,12 @@ public class Player : MonoBehaviour
 
     private void OnGround()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, groundLayer);
+        isGrounded = Physics2D.Raycast(positionRaycastGround.position, Vector2.down,  0.6f, groundLayer);
         isJumping = !isGrounded;
 
         if(isGrounded){
             jumpCooldownTimer = jumpCooldown;
         }
-        Debug.DrawRay(transform.position, Vector2.down * 1.0f, Color.red, 1.0f);
+        Debug.DrawRay(positionRaycastGround.position, Vector2.down * 0.6f, Color.red, 1.0f);
     }
 }
