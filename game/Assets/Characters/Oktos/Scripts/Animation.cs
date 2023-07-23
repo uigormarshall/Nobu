@@ -13,7 +13,7 @@ public class Animation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateStatus();
         Running();
