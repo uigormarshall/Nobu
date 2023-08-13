@@ -33,4 +33,10 @@ Um presente para o Eren.
 
 ![](https://github.com/uigormarshall/Nobu/blob/8f085a06cb7ba2aebe3e32cf7cf9a53712ab213b/sketchbook/personagens/adam/ada_v1.gif?raw=true")
 
+### Turret
+
+  
+
+![](https://github.com/uigormarshall/Nobu/blob/a748822db203fd044b7598fb1f249d18bb1a0627/sketchbook/personagens/turret/turret-fire.gif)
+
 
